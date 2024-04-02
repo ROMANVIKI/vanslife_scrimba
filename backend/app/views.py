@@ -21,7 +21,9 @@ class ListVanView(ListAPIView):
     serializer_class = VanSerializer
     permission_classes = [AllowAny]
 
-class RetrieveVanView(RetrieveAPIView):
+
+class RetrieveVan(RetrieveAPIView):
     queryset = Van.objects.all()
     serializer_class = VanSerializer
     permission_classes = [AllowAny]
+    
