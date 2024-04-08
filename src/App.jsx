@@ -17,6 +17,8 @@ import HostVanPhotos from "./components/pages/HostVanPhotos";
 import HostVanInfo from "./components/pages/HostVanInfo";
 import NotFound from "./components/pages/NotFound";
 import Login from "./components/pages/Login";
+import AuthRequired from "./components/AuthRequired";
+import Register from "./components/pages/Register";
 
 const App = () => {
   return (
@@ -25,10 +27,13 @@ const App = () => {
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="about" element={<About />} />
           <Route path="vans" element={<Vans />} />
           <Route path="van/:id" element={<VanDetails />} />
 
+
+          <Route element={<AuthRequired />}>
           <Route path="host" element={<HostLayout />}>
             <Route index element={<Dashboard />} />
             <Route path="income" element={<Income />} />
@@ -40,6 +45,8 @@ const App = () => {
               <Route path="photos" element={<HostVanPhotos />}/>
             </Route>
           </Route>
+          </Route>
+
           <Route path="*" element={<NotFound/>}/>
         </Route>
       </Routes>

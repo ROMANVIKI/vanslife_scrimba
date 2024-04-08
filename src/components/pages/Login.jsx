@@ -1,12 +1,35 @@
 import React, { useState } from 'react'
-import {useNavigate} from 'react-router-dom'
+import {useNavigate, useLocation, Link, Navigate} from 'react-router-dom'
 
 const Login = () => {
-    const [loginFormData, setLoginFormData] = useState({email: "", password: ""})
+    const [loginFormData, setLoginFormData] = useState({username: "", password: ""})
+    const location = useLocation()
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        console.log(loginFormData)
+     
+        const requestOptions = {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(loginFormData)
+
+        }
+
+        try{
+
+            const res = await fetch('http://localhost:8000/api/token/' , requestOptions)
+            const data = await res.json()
+            // console.log(data.access)
+            if(!res.ok){
+                console.log(res.status)
+                return
+            }
+            console.log('login successful')
+            setLoginFormData({username: '', password: ''})
+        }catch(e){
+            console.error('Error:', e)
+        }
+
     }
 
     const handleChange = (e) => {
@@ -16,12 +39,17 @@ const Login = () => {
             [name]: value
         }))
     }
+    // console.log(useNavigate())
+
+    // console.log(location.state.message)
+
 
   return (
     <div className="login-container">
+        {location.state?.message && <h3 style={{color:'red', textAlign: 'center'}}>{location.state.message} <span><Link to="/register" className="back-button">&larr; <span>Click Here</span></Link> </span> </h3>}
         <h1>Sign in to your accound</h1>
         <form action="" onSubmit={handleSubmit} className='login-form'>
-            <input type="email" name='email' onChange={handleChange} placeholder='Email Address' value={loginFormData.email}/>
+            <input type="text" name='username' onChange={handleChange} placeholder='Username' value={loginFormData.username}/>
             <input type="password" name='password' onChange={handleChange} placeholder='Password' value={loginFormData.password}/>
             <button>Log in</button>
 
