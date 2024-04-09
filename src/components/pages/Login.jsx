@@ -19,7 +19,14 @@ const Login = () => {
 
             const res = await fetch('http://localhost:8000/api/token/' , requestOptions)
             const data = await res.json()
-            // console.log(data.access)
+            
+
+        
+
+            localStorage.setItem('access_token', data.access)
+            localStorage.setItem('refresh_token', data.refresh)
+
+
             if(!res.ok){
                 console.log(res.status)
                 return
@@ -39,9 +46,7 @@ const Login = () => {
             [name]: value
         }))
     }
-    // console.log(useNavigate())
 
-    // console.log(location.state.message)
 
 
   return (
@@ -51,7 +56,7 @@ const Login = () => {
         <form action="" onSubmit={handleSubmit} className='login-form'>
             <input type="text" name='username' onChange={handleChange} placeholder='Username' value={loginFormData.username}/>
             <input type="password" name='password' onChange={handleChange} placeholder='Password' value={loginFormData.password}/>
-            <button>Log in</button>
+            <button disabled={false}>Log in</button>
 
         </form>
     </div>
