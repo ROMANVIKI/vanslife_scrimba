@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
-import {useLocation} from 'react-router-dom'
+import {useLocation, useNavigate} from 'react-router-dom'
 
 
 const Register = () => {
     const [registeFormData, setRegisterFormData] = useState({username: '', password: ''})
     const location = useLocation()
-
+    const navigate = useNavigate()
     
     const handleChange = (e) => {
         const {name, value} = e.target 
@@ -38,6 +38,7 @@ const Register = () => {
             // resetting the form data after successful submission
 
             setRegisterFormData({username: '', password: ''})
+            navigate('/login')
         }catch(error) {
             console.error('Error:', error)
         }
