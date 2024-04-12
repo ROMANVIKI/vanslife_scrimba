@@ -26,10 +26,10 @@ const Login = () => {
             
             
             if(!res.ok){
-                console.log(res.status)
+                // console.log(res.status)
                 return
             }
-            console.log('login successful')
+            // console.log('login successful')
             navigate(from, {replace:true})
             setLoginFormData({username: '', password: ''})
         }catch(e){
